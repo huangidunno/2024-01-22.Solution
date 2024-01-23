@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+<div class="aaa"></div>
+
+@section Scripts {
+    <script src="~/js/travel.js"></script>
+    <script>
+        let theDiv = document.querySelector(".aaa")
+        let emps = spots.CommonFormat.Section;
+        let a = "";
+        let htmlEmps = emps.map((emp) => {
+            let { stitle, xbody, file } = emp;            
+            try{
+                a=file.img[0].text
+            }catch{
+                a=""
+            }
+            return(
+                `<div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card">
+                                            <img src="${a}" class="card-img-top">
+                    <div class="card-body">
+                                <h5 class="card-title">${stitle}</h5>
+                                <p class="card-text">${xbody}</p>
+                    </div>
+                </div>
+            </div>
+        </div>`
+            )
+        })
+
+        theDiv.innerHTML = htmlEmps.join("");
+    </script>
+
+}
+
