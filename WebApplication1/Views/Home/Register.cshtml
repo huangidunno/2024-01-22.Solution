@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <form id="userForm">
+            <div class="mb-3">
+                <label for="userName" class="form-label">姓名：</label>
+                <input type="text" class="form-control" id="userName" name="Name">
+            </div>
+            <div class="mb-3">
+                <label for="UserEmail" class="form-label">電子郵件：</label>
+                <input type="email" class="form-control" id="UserEmail" name="Email">
+            </div>
+            <div class="mb-3">
+                <label for="userAge" class="form-label">年紀：</label>
+                <input type="number" class="form-control" id="userAge" name="Age">
+            </div>
+            <div class="mb-3">
+                <label for="userAvatar" class="custom-file-input">圖片：</label>
+                <input type="file" class="custom-file-input" id="userAvatar" name="avatar">
+            </div>
+            <button id="button1" type="submit" class="btn btn-primary">送出</button>
+        </form>
+        <div class="alert alert-info" id="div1"></div>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const btn = document.querySelector('#button1');
+        const txtName = document.querySelector('#userName');
+        const txtAge = document.querySelector('#userAge');
+        const txtMail = document.querySelector('#UserEmail');
+        const theDiv = document.querySelector('#div1');
+        let theForm = document.querySelector('#userForm')
+
+        btn.addEventListener('click',async(event)=>{
+            event.preventDefault();
+
+            let formData = new FormData(theForm);
+
+            let url = '@Url.Content("~/api/register")'
+            let response = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+            let datas = await response.text();
+            theDiv.innerHTML = datas;
+        })
+
+    </script>
+}
+
+

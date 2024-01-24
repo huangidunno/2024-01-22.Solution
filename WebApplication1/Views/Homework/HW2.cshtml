@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "HW2";
+}
+
+<h1>HW2</h1>
+
+姓名:<input type="text" id="name" class="mb-3" />
+<div id="nameDiv" class="text-danger"></div>
+信箱:<input type="text" id="email" class="mb-3" />
+<div id="emailDiv"></div>
+年齡:<input type="text" id="age" class="mb-3" />
+<div id="ageDiv"></div>
+<button type="submit" class="btn btn-primary" id="btn1">送出</button>
+
+@section Scripts {
+    <script>
+        const theDiv = document.querySelector("#nameDiv");
+        const theName = document.querySelector("#name");        
+
+        theName.addEventListener("focusout", async () => {            
+            let response = await fetch(`@Url.Content("~/api/CheckAccount")?name=${theName.value}`);
+
+            const account = await response.text(); 
+           
+            theDiv.innerHTML = `${account}`;
+
+        });
+
+    </script>
+}
+
